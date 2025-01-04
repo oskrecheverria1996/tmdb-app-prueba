@@ -1,0 +1,47 @@
+<!-- Page Header -->
+<div class="card header bg-gradient-danger pb-5 pt-5 pt-md-8">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row">
+        </div>
+      </div>
+    </div>
+</div>
+<!-- Page Body -->
+<div class="container-fluid mt--5">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="card bg-white container-height-fixed" id="page-header">
+                <div class="card-body bg-transparent p-3">
+                    <b *ngIf="(isLoading$ | async)">Cargando...</b>
+                    <div *ngIf="!(isLoading$ | async)">
+                      <div class="row justify-content-center">
+                          <img [src]="'https://image.tmdb.org/t/p/original/' + movieData.poster_path" height="200" class="rounded-circle">
+                      </div>
+                      <div class="row">
+                          <div class="col">
+                            <div class="card-profile-stats d-flex justify-content-center mt-md-2">
+                              <div>
+                                <span class="heading">{{ movieData.title }}</span>
+                                <span class="description">Title</span>
+                              </div>
+                              <div class="m-0">
+                                <span class="heading">{{ movieData.release_date }}</span>
+                                <span class="description">Release</span>
+                              </div>
+                              <div>
+                                <span class="heading">{{ movieData.popularity }}</span>
+                                <span class="description">Popularity</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      <div class="text-center pb-3">
+                        <h2><i class="ni ni-single-02"></i>  {{ movieData.login }}</h2>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
