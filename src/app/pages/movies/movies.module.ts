@@ -19,6 +19,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { MoviesFacade } from './movies.facade';
 import { MoviesState } from './movies.state';
 import { MovieDetailComponent } from './movie-detail/movie-detail.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { MovieDetailComponent } from './movie-detail/movie-detail.component';
     InputTextareaModule,
     MenuModule,
     MultiSelectModule,
+    SharedModule,
     StepsModule,
     TableModule,
     TabViewModule,

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { MoviesFacade } from '../movies.facade';
 import { ActivatedRoute } from '@angular/router';
+import { MovieCastAPIResponse } from 'src/app/shared/interfaces/movie-cast-api-response.interface';
 
 @Component({
   selector: 'app-movie-detail',
@@ -12,14 +13,20 @@ export class MovieDetailComponent implements OnInit {
 
   subscriptions: Subscription = new Subscription();
   movieData$: Observable<any>;
+  movieCast$: Observable<any>;
   movieData: any = {};
+  movieCast: any = [];
   isLoading$: Observable<boolean>;
 
   constructor(
     public moviesFacade: MoviesFacade,
     private route: ActivatedRoute,
   ) { 
-    // this.movieData$ = this.usersDataFacade.getMovieData$();
+    // this.movieCast$ = this.moviesFacade.getMovieCast$();
+    this.moviesFacade.getMovieCast$().subscribe((res) => {
+      this.movieCast = res.cast
+    });
+    // this.movieData$ = this.moviesFacade.getMovieData$();
     this.moviesFacade.getMovieData$().subscribe((res) => {
       this.movieData = res
     });
@@ -29,7 +36,8 @@ export class MovieDetailComponent implements OnInit {
   ngOnInit(): void {
     this.subscriptions.add(
       this.route.params.subscribe((params) => {
-       this.moviesFacade.getMovieById(params['userName']);
+       this.moviesFacade.getMovieById(params['movieId']);
+       this.moviesFacade.getMovieCastById(params['movieId']);
       })
     )
   }

@@ -1,47 +1,93 @@
-<!-- Page Header -->
-<div class="card header bg-gradient-danger pb-5 pt-5 pt-md-8">
-    <div class="container-fluid">
-      <div class="header-body">
-        <div class="row">
+<app-page-header>
+  <div *ngIf="!(isLoading$ | async)" class="col-12">
+    <div class="row">
+      <div class="col-auto">
+        <img [src]="'https://image.tmdb.org/t/p/original/' + movieData.poster_path" height="200" style="border-radius: 8%;">
+        <!-- <img src="../../../../assets/images/imgref.jpg" height="200" style="border-radius: 8%;"> -->
+      </div>
+      <div class="col-md-9 col-sm-12">
+        <div>
+          <h1 class="text-white">{{ movieData.title }} <span>({{ movieData.release_date | date: 'yyyy' }})</span> </h1>
+        </div>
+        <div style="width: 176px;">
+          <div class="progress-wrapper">
+            <div class="progress-info">
+              <div class="progress-label">
+                <span>Popularidad</span>
+              </div>
+              <div class="progress-percentage">
+                <span>{{ movieData.popularity }}</span>
+              </div>
+            </div>
+            <div class="progress">
+              <!-- <div class="progress-bar bg-default" role="progressbar" [aria-valuenow]="movieData.popularity" aria-valuemin="0" aria-valuemax="100" [ngStyle]="width movieData.popularity" style="width: 60%;"></div> -->
+            </div>
+          </div>
+        </div>
+        <div class="text-white">
+          <span *ngFor="let genre of movieData.genres">{{ genre.name }} </span>
         </div>
       </div>
     </div>
-</div>
-<!-- Page Body -->
-<div class="container-fluid mt--5">
-    <div class="row justify-content-center">
-        <div class="col-6">
-            <div class="card bg-white container-height-fixed" id="page-header">
-                <div class="card-body bg-transparent p-3">
-                    <b *ngIf="(isLoading$ | async)">Cargando...</b>
-                    <div *ngIf="!(isLoading$ | async)">
-                      <div class="row justify-content-center">
-                          <img [src]="'https://image.tmdb.org/t/p/original/' + movieData.poster_path" height="200" class="rounded-circle">
-                      </div>
-                      <div class="row">
-                          <div class="col">
-                            <div class="card-profile-stats d-flex justify-content-center mt-md-2">
-                              <div>
-                                <span class="heading">{{ movieData.title }}</span>
-                                <span class="description">Title</span>
-                              </div>
-                              <div class="m-0">
-                                <span class="heading">{{ movieData.release_date }}</span>
-                                <span class="description">Release</span>
-                              </div>
-                              <div>
-                                <span class="heading">{{ movieData.popularity }}</span>
-                                <span class="description">Popularity</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      <div class="text-center pb-3">
-                        <h2><i class="ni ni-single-02"></i>  {{ movieData.login }}</h2>
-                      </div>
-                    </div>
-                </div>
-            </div>
+  </div>
+</app-page-header>
+<app-page-body>
+  <app-loading *ngIf="(isLoading$ | async)"></app-loading>
+  <div *ngIf="!(isLoading$ | async)">
+    <div class="row justify-content-center pt-3 pb-3">
+      <h2>Reparto</h2>
+    </div>
+    <div class="row">
+        <div *ngFor="let cast of movieCast" class="col-3 text-center">
+          <img [src]="'https://image.tmdb.org/t/p/original/' + cast.profile_path" height="96px" width="96px" alt="" class="rounded-circle">
+          <!-- <img src="../../../../assets/images/imgref.jpg" height="96px" width="96px" alt="" class="rounded-circle"> -->
+          <div class="mt-2">
+            <h2>
+              {{ cast.name }}
+            </h2>
+            <label>{{ cast.character }}</label>
+          </div>
         </div>
     </div>
-</div>
+  </div>
+</app-page-body>
+<!-- <app-page-body>
+  <app-loading *ngIf="(isLoading$ | async)"></app-loading>
+  <div *ngIf="!(isLoading$ | async)">
+    <div class="row justify-content-center">
+        <img [src]="'https://image.tmdb.org/t/p/original/' + movieData.poster_path" height="200" class="rounded-circle">
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="card-profile-stats d-flex justify-content-center mt-md-2">
+          <div>
+            <span class="heading">{{ movieData.title }}</span>
+            <span class="description">Title</span>
+          </div>
+          <div class="m-0">
+            <span class="heading">{{ movieData.release_date | date }}</span>
+            <span class="description">Release</span>
+          </div>
+          <div>
+            <span class="heading">{{ movieData.popularity }}</span>
+            <span class="description">Popularity</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 text-center">
+        Cast
+      </div>
+      <div *ngFor="let cast of movieCast" class="col-4 text-center">
+        <img [src]="'https://image.tmdb.org/t/p/original/' + movieData.poster_path" height="96px" width="96px" alt="" class="rounded-circle">
+        <div class="mt-2">
+          <h2>
+            {{ cast.name }}
+          </h2>
+          <label>{{ cast.character }}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-page-body> -->

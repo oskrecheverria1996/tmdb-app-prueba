@@ -6,20 +6,8 @@ import { LayoutComponent } from "./core/layout/layout.component";
 import { HomeComponent } from "./core/home/home.component";
 
 const routes: Routes =[
-  { path: '', redirectTo: 'users-data', pathMatch: 'full' },
+  { path: '', redirectTo: 'movies', pathMatch: 'full' },
   {
-    path: '',
-    component: LayoutComponent,
-    children: [
-      {
-        path: "users-data",
-        loadChildren: () =>
-        import("./pages/users-data/users-data.module").then(
-            (m) => m.UsersDataModule
-        ),
-      }
-    ]
-  }, {
     path: '',
     component: LayoutComponent,
     children: [
@@ -33,11 +21,11 @@ const routes: Routes =[
     ]
   }, { 
     path: '', 
-    redirectTo: 'users-data', 
+    redirectTo: 'movies', 
     pathMatch: 'full' 
   }, { 
     path: '**', 
-    redirectTo: 'users-data' 
+    redirectTo: 'movies' 
   },
 ];
 

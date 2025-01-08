@@ -1,59 +1,40 @@
 <!-- Page Header -->
-<div class="card header bg-gradient-danger pb-5 pt-5 pt-md-8">
-    <div class="container-fluid">
-      <div class="header-body">
-        <div class="row mb-3">
-          <div class="col-8">
-            <div class="row">
-              <div class="col-4">
-                <input class="form-control" placement="bottom" container="body" (click)="showAlert()" (keyup)="showAlert()" [ngbPopover]="popValid" #popOver="ngbPopover" [formControl]="searchInput" type="search" placeholder="Ingrese nombre" aria-label="Search"/>
-              </div>
-              <div class="col-2 text-white">
-                <button type="button" [disabled]="searchInput.invalid" class="btn btn-info" (click)="search(searchInput.value)">Buscar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<app-page-header>
+  <div class="col-4">
+    <input type="text"
+      appDelayInput
+      class="form-control form-control-sm"
+      placeholder="Buscar"
+      [(ngModel)]="searchText"
+      (delayedInput)="search()">
   </div>
-  <ng-template #popValid>
-    <p class="mb-1" *ngIf="searchInput.hasError('minlength') || searchInput.hasError('required')">La busqueda es de minimo 4 caracteres</p>
-  </ng-template>
-  <!-- Page Body -->
-  <div class="container-fluid mt--5">
-    <div class=" row">
-      <div class="col">
-          <div class="card bg-white container-height-fixed" id="page-header">
-              <div class="card-body bg-transparent p-3">
-                <b *ngIf="(isLoading$ | async)">Cargando...</b>
-                <div *ngIf="!(isLoading$ | async)">
-                  <p-table 
-                    [value]="userslist$ | async"
-                    [paginator]="false"
-                    [rows]="10"
-                    (onRowSelect)="edit($event)"
-                    selectionMode="single"
-                    [tableStyle]="{ 'min-width': '100%' }">
-                    <ng-template pTemplate="header">
-                        <tr>
-                          <th>Id</th>
-                          <th>Titulo</th>
-                          <th>Fecha de estreno</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-movie>
-                        <tr [pSelectableRow]="movie">
-                          <td>{{ movie.id }}</td>
-                          <td>{{ movie.title }}</td>
-                          <td>{{ movie.release_date | date }}</td>
-                        </tr>
-                    </ng-template>
-                  </p-table>
-                  <!-- <p-paginator (onPageChange)="onPageChange($event)" [rows]="10" [totalRecords]="6" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator> -->
-                </div>
-              </div>
-          </div>
-      </div>
-    </div>
+</app-page-header>
+<!-- Page Body -->
+<app-page-body>
+  <app-loading *ngIf="(isLoading$ | async)"></app-loading>
+  <div *ngIf="!(isLoading$ | async)">
+    <p-table *ngIf="(moviesList$ | async).length > 0"
+      [value]="moviesList$ | async"
+      [rows]="10"
+      (onRowSelect)="edit($event)"
+      selectionMode="single"
+      [paginator]="(moviesList$ | async).length > 5"
+      [tableStyle]="{ 'min-width': '100%' }">
+      <ng-template pTemplate="header">
+          <tr>
+            <th>Id</th>
+            <th>Titulo</th>
+            <th class="text-center">Año de estreno</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-movie>
+          <tr [pSelectableRow]="movie">
+            <td>{{ movie.id }}</td>
+            <td>{{ movie.title }}</td>
+            <td class="text-center">{{ movie.release_date | date: 'yyyy' }}</td>
+          </tr>
+      </ng-template>
+    </p-table>
+    <!-- <p-paginator (onPageChange)="onPageChange($event)" [rows]="10" [totalRecords]="6" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator> -->
   </div>
+</app-page-body>

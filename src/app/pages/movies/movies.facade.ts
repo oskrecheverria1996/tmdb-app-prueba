@@ -15,7 +15,8 @@ export class MoviesFacade {
 
     getMovieList(search) {
         this.moviesState.setLoading(true)
-        this.apiServicesService.getMoviesList(search)
+        // this.apiServicesService.getMoviesList(search)
+        this.apiServicesService.getMoviesListMock(search)
         .pipe(finalize(() => this.moviesState.setLoading(false)))
         .subscribe(
             (res) => {
@@ -29,7 +30,8 @@ export class MoviesFacade {
        
     getMovieById(id) {
         this.moviesState.setLoadingSingle(true);
-        this.apiServicesService.getMovieDetail(id)
+        // this.apiServicesService.getMovieDetail(id)
+        this.apiServicesService.getMovieDetailMock(id)
         .pipe(finalize(() => this.moviesState.setLoadingSingle(false)))
         .subscribe(
             (res) => {
@@ -43,11 +45,12 @@ export class MoviesFacade {
 
     getMovieCastById(id) {
         this.moviesState.setLoadingSingle(true);
-        this.apiServicesService.getMovieCast(id)
+        // this.apiServicesService.getMovieCast(id)
+        this.apiServicesService.getMovieCastMock(id)
         .pipe(finalize(() => this.moviesState.setLoadingSingle(false)))
         .subscribe(
             (res) => {
-                this.moviesState.setMovieData(res);
+                this.moviesState.setMovieCast(res);
             },
             (err) => {
                 this.notificationsService.error(err.error.message, 'Error')
@@ -61,6 +64,10 @@ export class MoviesFacade {
 
     getMovieData$(): Observable<any[]> {
         return this.moviesState.getMovieData$();
+    }
+
+    getMovieCast$(): Observable<any> {
+        return this.moviesState.getMovieCast$();
     }
 
     isLoading$(): Observable<boolean> {

@@ -256,9 +256,9 @@ import { MovieCastAPIResponse } from '../shared/interfaces/movie-cast-api-respon
 
   }
 
-  getMovieDetailMock(id):Observable<any> {
+  getMovieDetailMock(id):Observable<MovieDetailAPIResponse> {
     
-    const movie = {
+    const movie: MovieDetailAPIResponse = {
       "adult": false,
       "backdrop_path": "/yRBc6WY3r1Fz5Cjd6DhSvzqunED.jpg",
       "belongs_to_collection": null,
@@ -302,7 +302,7 @@ import { MovieCastAPIResponse } from '../shared/interfaces/movie-cast-api-respon
               "name": "United States of America"
           }
       ],
-      "release_date": "2025-07-09",
+      "release_date": new Date("2025-07-09"),
       "revenue": 0,
       "runtime": 0,
       "spoken_languages": [
@@ -314,7 +314,7 @@ import { MovieCastAPIResponse } from '../shared/interfaces/movie-cast-api-respon
       ],
       "status": "Post Production",
       "tagline": "Look up.",
-      "title": "Superman",
+      "title": "Batman: El regreso del Caballero Oscuro, Parte 2",
       "video": false,
       "vote_average": 0.0,
       "vote_count": 0
@@ -326,8 +326,8 @@ import { MovieCastAPIResponse } from '../shared/interfaces/movie-cast-api-respon
 
   }
 
-  getMovieCastMock(id):Observable<any> {
-    const cast = {
+  getMovieCastMock(id):Observable<MovieCastAPIResponse> {
+    const cast: MovieCastAPIResponse = {
       "id": 1061474,
       "cast": [
           {
@@ -414,7 +414,8 @@ import { MovieCastAPIResponse } from '../shared/interfaces/movie-cast-api-respon
               "credit_id": "64adcfba1cfe3a00e4c51493",
               "order": 5
           },
-      ]
+      ],
+      crew: [],
     }
 
     return of(cast).pipe(

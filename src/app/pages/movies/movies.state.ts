@@ -7,6 +7,7 @@ export class MoviesState {
     private loading$ = new BehaviorSubject<boolean>(false);
     private pageInfo$ = new BehaviorSubject<any>({});
     private movieData$ = new BehaviorSubject<any>({});
+    private movieCast$ = new BehaviorSubject<any>([]);
     private loadingSingle$ = new BehaviorSubject<boolean>(false);
 
     setListMovies(results: any[]) {
@@ -23,6 +24,14 @@ export class MoviesState {
 
     getMovieData$(): Observable<any> {
         return this.movieData$.asObservable();
+    }
+
+    setMovieCast(result) {
+        this.movieCast$.next(result);
+    }
+
+    getMovieCast$(): Observable<any> {
+        return this.movieCast$.asObservable();
     }
 
     isLoading$(): Observable<boolean> {
