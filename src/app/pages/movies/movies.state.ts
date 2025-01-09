@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, Subject } from "rxjs";
 export class MoviesState {
     private listMovies$ = new BehaviorSubject<any>([]);
     private loading$ = new BehaviorSubject<boolean>(false);
-    private pageInfo$ = new BehaviorSubject<any>({});
+    private pageMetadata$ = new BehaviorSubject<any>({});
     private movieData$ = new BehaviorSubject<any>({});
     private movieCast$ = new BehaviorSubject<any>([]);
     private loadingSingle$ = new BehaviorSubject<boolean>(false);
@@ -16,6 +16,14 @@ export class MoviesState {
 
     getListMovies$() {
         return this.listMovies$.asObservable();
+    }
+
+    setListMoviesMetadata(results: any) {
+        this.pageMetadata$.next(results);
+    }
+
+    getListMoviesMetadata$() {
+        return this.pageMetadata$.asObservable();
     }
 
     setMovieData(result) {

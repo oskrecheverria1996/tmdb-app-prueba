@@ -2,12 +2,11 @@
   <div *ngIf="!(isLoading$ | async)" class="col-12">
     <div class="row">
       <div class="col-auto">
-        <img [src]="'https://image.tmdb.org/t/p/original/' + movieData.poster_path" height="200" style="border-radius: 8%;">
-        <!-- <img src="../../../../assets/images/imgref.jpg" height="200" style="border-radius: 8%;"> -->
+        <img class="movie-shadow-box" [src]="'https://image.tmdb.org/t/p/original/' + movieData.poster_path" height="200" style="border-radius: 8%;">
       </div>
       <div class="col-md-9 col-sm-12">
         <div>
-          <h1 class="text-white">{{ movieData.title }} <span>({{ movieData.release_date | date: 'yyyy' }})</span> </h1>
+          <h1 class="text-white">{{ movieData.title }} <small>({{ movieData.release_date | date: 'yyyy' }})</small> </h1>
         </div>
         <div style="width: 176px;">
           <div class="progress-wrapper">
@@ -25,7 +24,7 @@
           </div>
         </div>
         <div class="text-white">
-          <span *ngFor="let genre of movieData.genres">{{ genre.name }} </span>
+          <span>{{ listGenres(movieData?.genres) }} </span>
         </div>
       </div>
     </div>
@@ -33,61 +32,20 @@
 </app-page-header>
 <app-page-body>
   <app-loading *ngIf="(isLoading$ | async)"></app-loading>
-  <div *ngIf="!(isLoading$ | async)">
+  <div class="pr-6 pl-6" *ngIf="!(isLoading$ | async)">
     <div class="row justify-content-center pt-3 pb-3">
       <h2>Reparto</h2>
     </div>
     <div class="row">
-        <div *ngFor="let cast of movieCast" class="col-3 text-center">
-          <img [src]="'https://image.tmdb.org/t/p/original/' + cast.profile_path" height="96px" width="96px" alt="" class="rounded-circle">
-          <!-- <img src="../../../../assets/images/imgref.jpg" height="96px" width="96px" alt="" class="rounded-circle"> -->
-          <div class="mt-2">
-            <h2>
-              {{ cast.name }}
-            </h2>
-            <label>{{ cast.character }}</label>
+        <div *ngFor="let cast of movieCast" class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-xs-12 p-4">
+          <div class="card movie-shadow-box">
+            <img [src]="'https://image.tmdb.org/t/p/original/' + cast.profile_path" class="card-img-top">
+            <div class="card-body pl-2">
+              <h5 class="card-title mb-2">{{ cast.name }}</h5>
+              <h6>{{ cast.character }}</h6>
+            </div>
           </div>
         </div>
     </div>
   </div>
 </app-page-body>
-<!-- <app-page-body>
-  <app-loading *ngIf="(isLoading$ | async)"></app-loading>
-  <div *ngIf="!(isLoading$ | async)">
-    <div class="row justify-content-center">
-        <img [src]="'https://image.tmdb.org/t/p/original/' + movieData.poster_path" height="200" class="rounded-circle">
-    </div>
-    <div class="row">
-      <div class="col">
-        <div class="card-profile-stats d-flex justify-content-center mt-md-2">
-          <div>
-            <span class="heading">{{ movieData.title }}</span>
-            <span class="description">Title</span>
-          </div>
-          <div class="m-0">
-            <span class="heading">{{ movieData.release_date | date }}</span>
-            <span class="description">Release</span>
-          </div>
-          <div>
-            <span class="heading">{{ movieData.popularity }}</span>
-            <span class="description">Popularity</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12 text-center">
-        Cast
-      </div>
-      <div *ngFor="let cast of movieCast" class="col-4 text-center">
-        <img [src]="'https://image.tmdb.org/t/p/original/' + movieData.poster_path" height="96px" width="96px" alt="" class="rounded-circle">
-        <div class="mt-2">
-          <h2>
-            {{ cast.name }}
-          </h2>
-          <label>{{ cast.character }}</label>
-        </div>
-      </div>
-    </div>
-  </div>
-</app-page-body> -->

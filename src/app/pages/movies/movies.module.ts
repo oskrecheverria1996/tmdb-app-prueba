@@ -16,6 +16,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { TreeModule } from 'primeng/tree';
 import { TreeTableModule } from 'primeng/treetable';
 import { PaginatorModule } from 'primeng/paginator';
+import { ProgressBarModule } from "primeng/progressbar";
 import { MoviesFacade } from './movies.facade';
 import { MoviesState } from './movies.state';
 import { MovieDetailComponent } from './movie-detail/movie-detail.component';

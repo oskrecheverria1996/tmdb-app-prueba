@@ -46,4 +46,9 @@ export class MovieDetailComponent implements OnInit {
     this.subscriptions.unsubscribe();
   }
 
+  listGenres(genresList) {
+    let result = genresList.map(x => x.name).join(", ");
+    return result;
+  }
+
 }

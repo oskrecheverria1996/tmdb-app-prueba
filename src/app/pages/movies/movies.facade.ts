@@ -13,14 +13,18 @@ export class MoviesFacade {
         private notificationsService: NotificationsService,
     ) { }
 
-    getMovieList(search) {
+    getMovieList(search, page = 1) {
         this.moviesState.setLoading(true)
-        // this.apiServicesService.getMoviesList(search)
-        this.apiServicesService.getMoviesListMock(search)
+        this.apiServicesService.getMoviesList(search, page)
         .pipe(finalize(() => this.moviesState.setLoading(false)))
         .subscribe(
             (res) => {
                 this.moviesState.setListMovies(res.results);
+                this.moviesState.setListMoviesMetadata({
+                    total_results: res.total_results,
+                    page: res.page,
+                    total_pages: res.total_pages,
+                });
             },
             (err) => {
                 this.notificationsService.error(err.error.message, 'Error');
@@ -30,8 +34,7 @@ export class MoviesFacade {
        
     getMovieById(id) {
         this.moviesState.setLoadingSingle(true);
-        // this.apiServicesService.getMovieDetail(id)
-        this.apiServicesService.getMovieDetailMock(id)
+        this.apiServicesService.getMovieDetail(id)
         .pipe(finalize(() => this.moviesState.setLoadingSingle(false)))
         .subscribe(
             (res) => {
@@ -45,8 +48,7 @@ export class MoviesFacade {
 
     getMovieCastById(id) {
         this.moviesState.setLoadingSingle(true);
-        // this.apiServicesService.getMovieCast(id)
-        this.apiServicesService.getMovieCastMock(id)
+        this.apiServicesService.getMovieCast(id)
         .pipe(finalize(() => this.moviesState.setLoadingSingle(false)))
         .subscribe(
             (res) => {
@@ -64,6 +66,10 @@ export class MoviesFacade {
 
     getMovieData$(): Observable<any[]> {
         return this.moviesState.getMovieData$();
+    }
+
+    getMoviesListMetadata$(): Observable<any> {
+        return this.moviesState.getListMoviesMetadata$();
     }
 
     getMovieCast$(): Observable<any> {

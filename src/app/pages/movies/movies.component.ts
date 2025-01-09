@@ -14,8 +14,11 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription = new Subscription();
   moviesList$: Observable<any[]>;
+  moviesListMetadata$: Observable<any>;
   isLoading$: Observable<boolean>;
   searchText: string;
+  currentPage: number = 1;
+  limit: number = 20;
 
   constructor(
     public moviesFacade: MoviesFacade,
@@ -23,14 +26,17 @@ export class MoviesComponent implements OnInit, OnDestroy {
     private notificationsService: NotificationsService
   ) {
     this.moviesList$ = this.moviesFacade.getListMovies$();
+    this.moviesListMetadata$ = this.moviesFacade.getMoviesListMetadata$();
     this.isLoading$ = this.moviesFacade.isLoading$();
   }
   
   ngOnInit(): void {
   }
 
-  onPageChange(event) {
-
+  changePage(event) {
+    this.currentPage = event.first
+    let page = event.page + 1
+    this.moviesFacade.getMovieList(this.searchText, page);
   }
   
   edit(event) {

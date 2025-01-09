@@ -1,24 +1,24 @@
-<!-- Page Header -->
 <app-page-header>
-  <div class="col-4">
-    <input type="text"
-      appDelayInput
-      class="form-control form-control-sm"
-      placeholder="Buscar"
-      [(ngModel)]="searchText"
-      (delayedInput)="search()">
+  <div class="col-12 mt-4 mb-6">
+    <div class="row justify-content-center">
+      <div class="col-5">
+        <input type="text"
+          appDelayInput
+          class="form-control form-control-sm"
+          placeholder="Buscar"
+          [(ngModel)]="searchText"
+          (delayedInput)="search()">
+      </div>
+    </div>
   </div>
 </app-page-header>
-<!-- Page Body -->
 <app-page-body>
   <app-loading *ngIf="(isLoading$ | async)"></app-loading>
   <div *ngIf="!(isLoading$ | async)">
     <p-table *ngIf="(moviesList$ | async).length > 0"
       [value]="moviesList$ | async"
-      [rows]="10"
       (onRowSelect)="edit($event)"
       selectionMode="single"
-      [paginator]="(moviesList$ | async).length > 5"
       [tableStyle]="{ 'min-width': '100%' }">
       <ng-template pTemplate="header">
           <tr>
@@ -35,6 +35,15 @@
           </tr>
       </ng-template>
     </p-table>
-    <!-- <p-paginator (onPageChange)="onPageChange($event)" [rows]="10" [totalRecords]="6" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator> -->
+    <div *ngIf="moviesListMetadata$ | async as moviesMetadata">
+      <div *ngIf="moviesMetadata?.total_results > 20">
+        <p-paginator
+          [first]="currentPage"
+          [rows]="limit"
+          [totalRecords]="moviesMetadata?.total_results" 
+          (onPageChange)="changePage($event)">
+        </p-paginator>
+      </div>
+    </div>
   </div>
 </app-page-body>
