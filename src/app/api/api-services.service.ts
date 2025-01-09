@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable, of, delay, filter, map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { MovieListAPIResponse } from '../shared/interfaces/movies-list-api-response.interface';
 import { MovieDetailAPIResponse } from '../shared/interfaces/movie-detail-api-response.interface';

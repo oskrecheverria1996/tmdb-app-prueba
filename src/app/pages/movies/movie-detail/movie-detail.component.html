@@ -12,14 +12,14 @@
           <div class="progress-wrapper">
             <div class="progress-info">
               <div class="progress-label">
-                <span>Popularidad</span>
+                <span class="text-white bg-primary">Puntuacion</span>
               </div>
               <div class="progress-percentage">
-                <span>{{ movieData.popularity }}</span>
+                <span class="text-white">{{ movieData.vote_average }}%</span>
               </div>
             </div>
             <div class="progress">
-              <!-- <div class="progress-bar bg-default" role="progressbar" [aria-valuenow]="movieData.popularity" aria-valuemin="0" aria-valuemax="100" [ngStyle]="width movieData.popularity" style="width: 60%;"></div> -->
+              <div class="progress-bar bg-success" role="progressbar" [aria-valuenow]="movieData.vote_average" aria-valuemin="0" aria-valuemax="10" [ngStyle]="{'width' : (movieData.vote_average * 10) + '%' }"></div>
             </div>
           </div>
         </div>

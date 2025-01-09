@@ -27,7 +27,7 @@ export class MoviesFacade {
                 });
             },
             (err) => {
-                this.notificationsService.error(err.error.message, 'Error');
+                this.notificationsService.error(err.error.status_message, 'Error');
             }
         )
     }
@@ -41,7 +41,7 @@ export class MoviesFacade {
                 this.moviesState.setMovieData(res);
             },
             (err) => {
-                this.notificationsService.error(err.error.message, 'Error')
+                this.notificationsService.error(err.error.status_message, 'Error')
             }
         )
     }
@@ -55,7 +55,7 @@ export class MoviesFacade {
                 this.moviesState.setMovieCast(res);
             },
             (err) => {
-                this.notificationsService.error(err.error.message, 'Error')
+                this.notificationsService.error(err.error.status_message, 'Error')
             }
         )
     }
